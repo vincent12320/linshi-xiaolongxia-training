@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lovable 产品调研简报（完整版）— AI产品经理视角 | 2026-08-24 V4</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
+  :root {
+    --green: #1F6B4A;
+    --green-dark: #155237;
+    --green-light: #e8f5ee;
+    --green-bg: #f0faf5;
+    --terracotta: #C86848;
+    --terracotta-light: #fdf0eb;
+    --bg: #f7f8fa;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --text-2: #4a5568;
+    --text-3: #718096;
+    --border: #e2e8f0;
+    --border-light: #edf2f7;
+    --nav-w: 256px;
+    --blue: #2563EB;
+    --purple: #7c3aed;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,.1);
+    --radius: 10px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter','Noto Sans SC',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.78;font-size:15px}
+
+  /* ===== NAV ===== */
+  nav.side{position:fixed;top:0;left:0;width:var(--nav-w);height:100vh;background:linear-gradient(175deg,var(--green-dark) 0%,var(--green) 100%);color:#fff;overflow-y:auto;padding:32px 20px 48px;z-index:100}
+  nav.side::-webkit-scrollbar{width:4px}
+  nav.side::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:2px}
+  nav.side .brand{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;opacity:.5;margin-bottom:4px}
+  nav.side h1{font-size:17px;font-weight:700;margin-bottom:4px;line-height:1.4}
+  nav.side .meta{font-size:11.5px;opacity:.45;margin-bottom:32px}
+  nav.side ul{list-style:none}
+  nav.side li{margin-bottom:1px}
+  nav.side a{display:block;padding:7px 14px;border-radius:7px;color:rgba(255,255,255,.78);text-decoration:none;font-size:13px;font-weight:500;transition:all .15s}
+  nav.side a:hover{background:rgba(255,255,255,.12);color:#fff}
+  nav.side a.active{background:rgba(255,255,255,.18);color:#fff;font-weight:600}
+  nav.side .g{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;opacity:.35;margin:20px 0 8px 14px;font-weight:600}
+
+  /* ===== MOBILE CHIPS ===== */
+  .chips{display:none;position:fixed;top:0;left:0;right:0;z-index:100;background:var(--green);padding:10px 14px;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+  .chips a{display:inline-block;padding:5px 14px;border-radius:20px;background:rgba(255,255,255,.12);color:#fff;font-size:12px;margin-right:6px;text-decoration:none;font-weight:500}
+  /* ===== INSIGHT BLOCKS (V3 additions) ===== */
+  .insight{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid #bbf7d0;border-radius:12px;padding:20px 24px;margin:18px 0}
+  .insight-head{font-size:15px;font-weight:700;color:var(--green);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .insight-head::before{content:'💡';font-size:18px}
+  .insight p{font-size:14px;margin-bottom:8px}
+  .mapping{background:rgba(31,107,74,.06);border-radius:8px;padding:12px 16px;margin-top:10px;font-size:13.5px;border:1px dashed rgba(31,107,74,.2)}
+  .mapping strong{color:var(--green)}
+  /* Layer steps */
+  .layer{display:grid;grid-template-columns:48px 1fr;gap:0 16px;margin:8px 0 20px;position:relative}
+  .layer::before{content:'';position:absolute;left:23px;top:24px;bottom:24px;width:2px;background:linear-gradient(var(--green),var(--terracotta),var(--purple));opacity:.25}
+  .ln{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;position:relative;z-index:1}
+  .lc{padding:8px 0 24px}
+  .lc h4{margin-top:4px;font-size:14px;color:var(--text)}
+  .lc p{font-size:13.5px}
+  code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:13px}
+  /* Feature items with highlight */
+  .fi{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;font-size:13px;line-height:1.65}
+  .fi h5{font-size:13.5px;font-weight:700;margin-bottom:6px}
+  .fi.hl{border-color:var(--green);background:var(--green-bg)}
+  /* Feature mini grid */
+  .fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
+  @media(max-width:860px){nav.side{display:none}.chips{display:block}main{margin-left:0!important;padding:60px 16px 48px!important;max-width:100%!important}}
+
+  /* ===== MAIN ===== */
+  main{margin-left:var(--nav-w);max-width:860px;padding:40px 52px 80px}
+  section{margin-bottom:56px}
+
+  /* ===== HEADINGS ===== */
+  h2{font-size:24px;font-weight:800;color:var(--green);margin-bottom:24px;position:relative;padding-left:18px}
+  h2::before{content:'';position:absolute;left:0;top:4px;width:5px;height:28px;background:var(--terracotta);border-radius:3px}
+  h3{font-size:17px;font-weight:700;color:var(--text);margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border-light)}
+  h4{font-size:15px;font-weight:600;color:var(--terracotta);margin:20px 0 8px}
+  p{margin-bottom:14px;color:var(--text-2)}
+  strong{color:var(--text)}
+
+  /* ===== HERO ===== */
+  .hero{background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;border-radius:16px;padding:36px 40px;margin-bottom:40px;box-shadow:var(--shadow-lg)}
+  .hero h2{color:#fff;padding-left:0;font-size:28px}
+  .hero h2::before{display:none}
+  .hero p{color:rgba(255,255,255,.8);margin-bottom:8px}
+  .hero .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-top:24px}
+  .hero .stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:16px 18px;text-align:center}
+  .hero .stat .n{font-size:26px;font-weight:800;color:#fff;line-height:1.2}
+  .hero .stat .l{font-size:11.5px;opacity:.6;margin-top:4px;font-weight:500}
+
+  /* ===== CARDS ===== */
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:16px 0;box-shadow:var(--shadow-sm)}
+  .card.accent{border-left:4px solid var(--terracotta);border-color:var(--border);border-left-color:var(--terracotta)}
+  .card.green-accent{border-left:4px solid var(--green);border-color:var(--border);border-left-color:var(--green)}
+  .card-title{font-size:14px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+
+  /* ===== DEMO PANEL ===== */
+  .demo{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:20px 0;box-shadow:var(--shadow-md)}
+  .demo-header{background:linear-gradient(90deg,#f8fafc,#f1f5f9);padding:12px 20px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+  .demo-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid #cbd5e1}
+  .demo-dot.r{border-color:#f87171;background:#fecaca}.demo-dot.y{border-color:#fbbf24;background:#fef3c7}.demo-dot.g{border-color:#34d399;background:#d1fae5}
+  .demo-label{font-size:12px;color:var(--text-3);font-weight:500;margin-left:auto}
+  .demo-body{padding:24px 20px}
+  .demo-body img{width:100%;border-radius:8px;display:block}
+  .demo-caption{font-size:12.5px;color:var(--text-3);margin-top:12px;padding:0 4px;line-height:1.6}
+
+  /* ===== FEATURE GRID ===== */
+  .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0}
+  .feat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:box-shadow .2s}
+  .feat:hover{box-shadow:var(--shadow-md)}
+  .feat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}
+  .feat-icon.green{background:var(--green-light);color:var(--green)}
+  .feat-icon.orange{background:var(--terracotta-light);color:var(--terracotta)}
+  .feat-icon.blue{background:#eff6ff;color:var(--blue)}
+  .feat-icon.purple{background:#f5f3ff;color:var(--purple)}
+  .feat h5{font-size:14px;font-weight:700;margin-bottom:6px;color:var(--text)}
+  .feat p{font-size:13px;margin-bottom:0;line-height:1.6}
+
+  /* ===== TABLE ===== */
+  .table-wrap{overflow-x:auto;margin:16px 0;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{background:var(--green);color:#fff;padding:11px 16px;text-align:left;font-weight:600;font-size:12px;letter-spacing:.3px;white-space:nowrap}
+  td{padding:10px 16px;border-bottom:1px solid var(--border-light);vertical-align:top;color:var(--text-2)}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:var(--green-bg)}
+  td strong{color:var(--text)}
+
+  /* ===== KV ===== */
+  .kv{display:grid;grid-template-columns:130px 1fr;gap:4px 20px;margin:14px 0 18px;font-size:14px}
+  .kv dt{font-weight:600;color:var(--text-3);white-space:nowrap}
+  .kv dd{color:var(--text)}
+
+  /* ===== TAGS ===== */
+  .tag{display:inline-block;font-size:10.5px;padding:2px 8px;border-radius:4px;font-weight:600;vertical-align:middle;margin-left:3px;letter-spacing:.2px}
+  .tag-ok{background:#dcfce7;color:#166534}
+  .tag-warn{background:#fef3c7;color:#92400e}
+  .tag-no{background:#fee2e2;color:#991b1b}
+
+  /* ===== CALLOUT ===== */
+  .callout{border-radius:10px;padding:16px 20px;margin:18px 0;font-size:14px;line-height:1.7}
+  .callout.warn{background:var(--terracotta-light);border:1px solid #f5d0c5}
+  .callout.info{background:var(--green-bg);border:1px solid #c6e7d5}
+  .callout.grey{background:#f1f5f9;border:1px solid var(--border)}
+  .callout strong{display:block;margin-bottom:4px}
+
+  /* ===== FLOW DIAGRAM ===== */
+  .flow-svg{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px 20px 16px;margin:20px 0;text-align:center;overflow-x:auto;box-shadow:var(--shadow-sm)}
+
+  /* ===== TIMELINE ===== */
+  .timeline{position:relative;padding-left:28px;margin:20px 0}
+  .timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--green),var(--terracotta))}
+  .tl-item{position:relative;margin-bottom:18px}
+  .tl-item::before{content:'';position:absolute;left:-24px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--green);border:3px solid var(--green-light)}
+  .tl-item:nth-child(even)::before{background:var(--terracotta);border-color:var(--terracotta-light)}
+  .tl-date{font-size:12px;font-weight:700;color:var(--green);margin-bottom:2px}
+  .tl-text{font-size:13.5px;color:var(--text-2)}
+  .tl-text strong{color:var(--text)}
+
+  /* ===== INSIGHT BLOCKS ===== */
+  .insight{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid #bbf7d0;border-radius:12px;padding:20px 24px;margin:18px 0}
+  .insight-head{font-size:15px;font-weight:700;color:var(--green);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .insight-head::before{content:'💡';font-size:18px}
+  .insight p{font-size:14px;margin-bottom:8px}
+  .insight .mapping{background:rgba(31,107,74,.06);border-radius:8px;padding:12px 16px;margin-top:10px;font-size:13.5px;border:1px dashed rgba(31,107,74,.2)}
+  .insight .mapping strong{color:var(--green)}
+
+  /* ===== LINKS ===== */
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ===== RESPONSIVE TABLE FIX ===== */
+  @media(max-width:600px){
+    .kv{grid-template-columns:1fr;gap:2px 0}
+    .kv dt{margin-top:8px}
+    .feat-grid{grid-template-columns:1fr}
+    .hero .stats{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+
+<!-- Mobile chips -->
+<div class="chips">
+  <a href="#hero">概览</a><a href="#positioning">定位</a><a href="#features">功能</a><a href="#tech-model">模型</a><a href="#tech-harness">Harness</a><a href="#tech-stack">技术栈</a><a href="#tech-compare">对比</a><a href="#why-ui">UI质量之谜</a><a href="#seven-layers">七层Harness</a><a href="#replicate">复现路径</a><a href="#business">商业</a><a href="#growth">增长</a><a href="#insights">启示</a><a href="#qoder">Qoder</a><a href="#sources">来源</a>
+</div>
+
+<!-- Left Nav -->
+<nav class="side">
+  <div class="brand">AI PM Research · 完整版</div>
+  <h1>Lovable 产品调研</h1>
+  <div class="meta">2026-08-24 · V4</div>
+  <ul>
+    <li><a href="#hero">公司概览</a></li>
+    <li><a href="#positioning">① 产品定位与目标用户</a></li>
+    <li><a href="#features">② 核心功能与交互</a></li>
+    <div class="g">技术深挖</div>
+    <li><a href="#tech-model">③-a 底层大模型</a></li>
+    <li><a href="#tech-harness">③-b Agent Harness</a></li>
+    <li><a href="#tech-stack">③-c 模板库 / 脚手架</a></li>
+    <li><a href="#tech-preview">③-d 执行与预览</a></li>
+    <li><a href="#tech-compare">③-e 同类对比</a></li>
+    <div class="g">深度分析（核心）</div>
+    <li><a href="#why-ui">为什么裸模型做不到</a></li>
+    <li><a href="#seven-layers">七层 Harness 增值拆解</a></li>
+    <li><a href="#replicate">套件复现路径</a></li>
+    <div class="g">商业 & 增长</div>
+    <li><a href="#business">④ 商业模式</a></li>
+    <li><a href="#growth">⑤ 增长策略</a></li>
+    <li><a href="#insights">⑥ 对我们的启示</a></li>
+    <li><a href="#qoder">对标 Qoder Work</a></li>
+    <li><a href="#roadmap">实施路线图</a></li>
+    <li><a href="#sources">信息来源</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ==================== HERO ==================== -->
+<section id="hero">
+<div class="hero">
+  <h2>Lovable — 从 Prompt 到产品的 AI 全栈构建平台</h2>
+  <p>前身 GPT Engineer（2023 开源，52K GitHub Stars）→ 2024.11 上线商业版 → 18 个月成为欧洲增速最快 SaaS</p>
+  <div class="stats">
+    <div class="stat"><div class="n">$133 亿</div><div class="l">最新估值 (Series C, 2026.08)</div></div>
+    <div class="stat"><div class="n">~$600M</div><div class="l">ARR Run-rate (2026.08)</div></div>
+    <div class="stat"><div class="n">60M+</div><div class="l">累计项目数</div></div>
+    <div class="stat"><div class="n">9 亿+</div><div class="l">应用月访问量</div></div>
+    <div class="stat"><div class="n">146 人</div><div class="l">团队规模</div></div>
+    <div class="stat"><div class="n">$270 万</div><div class="l">人均 ARR（7× 行业基准）</div></div>
+  </div>
+</div>
+
+<h3>融资与增长里程碑</h3>
+<div class="timeline">
+  <div class="tl-item"><div class="tl-date">2023 年</div><div class="tl-text">Anton Osika 周末项目 GPT Engineer 开源，<strong>获 52K GitHub Stars</strong></div></div>
+  <div class="tl-item"><div class="tl-date">2024.11</div><div class="tl-text">Lovable 商业版正式上线</div></div>
+  <div class="tl-item"><div class="tl-date">2025.07</div><div class="tl-text">Series A <strong>$2 亿 @ $18 亿估值</strong>；8 个月内达到 $100M ARR，史上最快</div></div>
+  <div class="tl-item"><div class="tl-date">2025.11</div><div class="tl-text">ARR 翻倍至 <strong>$200M</strong>（Slush 2025 大会公布）</div></div>
+  <div class="tl-item"><div class="tl-date">2025.12</div><div class="tl-text">Series B <strong>$3.3 亿 @ $66 亿</strong>，CapitalG + Menlo 领投，NVentures / Salesforce Ventures 等跟投</div></div>
+  <div class="tl-item"><div class="tl-date">2026.02</div><div class="tl-text">发布 <strong>Lovable 2.0</strong>（Plan Mode + 多人实时协作）；ARR 达 $400M</div></div>
+  <div class="tl-item"><div class="tl-date">2026.06</div><div class="tl-text">ARR 达 <strong>$500M</strong></div></div>
+  <div class="tl-item"><div class="tl-date">2026.08.12</div><div class="tl-text">Series C <strong>$4 亿 @ $133 亿</strong>，Menlo + Scaleup Europe Fund 领投，<strong>腾讯</strong>参投</div></div>
+</div>
+</section>
+
+<!-- ==================== ① 定位 ==================== -->
+<section id="positioning">
+<h2>① 产品定位与目标用户</h2>
+
+<div class="card accent">
+  <div class="card-title">核心问题</div>
+  <p style="font-size:16px;color:var(--text);font-weight:500;margin-bottom:6px">"有太多人来找我说——我有一个好主意想实现，但我不会写代码。"</p>
+  <p style="font-size:13px;margin-bottom:0">—— Anton Osika, CEO & Co-founder</p>
+</div>
+
+<p>Lovable 将 <strong>"想法 → 可运行全栈应用"</strong> 的路径从周/月级工程投入压缩到小时级对话迭代。自我定位从 "AI Software Engineer" 进化为 <strong>"AI Co-founder"</strong>——不只写代码，还参与规划、架构决策、自主调试。</p>
+
+<h3>目标人群矩阵</h3>
+<div class="feat-grid">
+  <div class="feat">
+    <div class="feat-icon orange">🚀</div>
+    <h5>非技术创始人（核心）</h5>
+    <p>有想法不会编码，需要快速验证 MVP、制作投资人 Demo。Lovable 的 PMF 建立在这一群体。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon blue">🏢</div>
+    <h5>企业业务团队</h5>
+    <p>PM / 设计师 / 销售 / 财务自建内部工具、仪表盘、流程自动化，无需等工程排期。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon green">💻</div>
+    <h5>开发者</h5>
+    <p>跳过 boilerplate 快速搭脚手架，导出到 GitHub 后在 Cursor/Claude Code 中深度开发。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon purple">🎨</div>
+    <h5>设计师 & 自由职业</h5>
+    <p>Figma 导入 → 可运行应用，客户项目从设计到交付在一个平台闭环。</p>
+  </div>
+</div>
+
+<div class="callout info">
+  <strong>定位差异化：</strong>Cursor / Claude Code → 专业开发者；v0 → 前端组件生成；Replit → 完整 IDE 全栈。Lovable 刻意隐藏代码复杂度，用对话界面让非技术用户也能产出生产级全栈应用。
+</div>
+</section>
+
+<!-- ==================== ② 功能 ==================== -->
+<section id="features">
+<h2>② 核心功能与交互设计</h2>
+
+<h3>端到端流程总览</h3>
+
+<div class="flow-svg">
+<svg viewBox="0 0 840 200" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;font-family:Inter,'Noto Sans SC',sans-serif;">
+  <defs>
+    <linearGradient id="gG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#155237"/><stop offset="100%" stop-color="#1F6B4A"/></linearGradient>
+    <marker id="ar" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#C86848"/></marker>
+    <filter id="ds"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity=".08"/></filter>
+  </defs>
+  <!-- Step 1 -->
+  <rect x="10" y="30" width="130" height="68" rx="12" fill="url(#gG)" filter="url(#ds)"/>
+  <text x="75" y="55" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">📝 用户输入</text>
+  <text x="75" y="74" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="10">自然语言 / 图片 / Figma</text>
+  <line x1="140" y1="64" x2="166" y2="64" stroke="#C86848" stroke-width="2" marker-end="url(#ar)"/>
+  <!-- Step 2 -->
+  <rect x="168" y="30" width="130" height="68" rx="12" fill="#fff" stroke="#1F6B4A" stroke-width="2" filter="url(#ds)"/>
+  <text x="233" y="55" text-anchor="middle" fill="#1F6B4A" font-size="13" font-weight="700">🧠 Plan Mode</text>
+  <text x="233" y="74" text-anchor="middle" fill="#718096" font-size="10">澄清 → 方案 → .md 批准</text>
+  <line x1="298" y1="64" x2="324" y2="64" stroke="#C86848" stroke-width="2" marker-end="url(#ar)"/>
+  <!-- Step 3 -->
+  <rect x="326" y="30" width="158" height="68" rx="12" fill="url(#gG)" filter="url(#ds)"/>
+  <text x="405" y="50" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">⚡ Build Mode (Agent)</text>
+  <text x="405" y="68" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="10">自主编码 · 调试 · Web 搜索</text>
+  <text x="405" y="84" text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="9">SubAgents: Researcher · Reviewer · Synthesiser</text>
+  <line x1="484" y1="64" x2="510" y2="64" stroke="#C86848" stroke-width="2" marker-end="url(#ar)"/>
+  <!-- Step 4 -->
+  <rect x="512" y="30" width="130" height="68" rx="12" fill="#fff" stroke="#C86848" stroke-width="2" filter="url(#ds)"/>
+  <text x="577" y="55" text-anchor="middle" fill="#C86848" font-size="13" font-weight="700">👁 实时预览</text>
+  <text x="577" y="74" text-anchor="middle" fill="#718096" font-size="10">沙箱渲染 · 即时反馈</text>
+  <line x1="642" y1="64" x2="668" y2="64" stroke="#C86848" stroke-width="2" marker-end="url(#ar)"/>
+  <!-- Step 5 -->
+  <rect x="670" y="30" width="150" height="68" rx="12" fill="url(#gG)" filter="url(#ds)"/>
+  <text x="745" y="55" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">🚀 一键部署</text>
+  <text x="745" y="74" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="10">Lovable Cloud · 自定义域名</text>
+  <!-- Iteration loop -->
+  <path d="M 577 98 C 577 155, 233 155, 233 98" fill="none" stroke="#C86848" stroke-width="1.5" stroke-dasharray="6,4" opacity=".6"/>
+  <text x="405" y="145" text-anchor="middle" fill="#C86848" font-size="11" font-weight="500" opacity=".8">↻ 对话迭代循环</text>
+  <!-- Legend -->
+  <text x="12" y="190" fill="#a0aec0" font-size="9.5">来源: Lovable docs.lovable.dev + Anthropic 官方案例 claude.com/customers/lovable</text>
+</svg>
+</div>
+
+<h3>关键体验设计</h3>
+
+<!-- Demo Panel: Plan Mode -->
+<div class="demo">
+  <div class="demo-header">
+    <span class="demo-dot r"></span><span class="demo-dot y"></span><span class="demo-dot g"></span>
+    <span class="demo-label">Plan Mode → Build Mode 双模式交互</span>
+  </div>
+  <div class="demo-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#f8fafc;border-radius:10px;padding:20px;border:1px solid #e2e8f0">
+        <div style="font-size:13px;font-weight:700;color:#1F6B4A;margin-bottom:10px">🧠 Plan Mode</div>
+        <div style="font-size:12.5px;color:#4a5568;line-height:1.7">
+          <div style="background:#f0fdf4;padding:8px 12px;border-radius:6px;margin-bottom:8px;border-left:3px solid #1F6B4A">用户："我要做一个带用户登录的任务管理应用"</div>
+          <div style="background:#fff;padding:8px 12px;border-radius:6px;margin-bottom:8px;border:1px solid #e2e8f0">
+            <strong style="font-size:11px;color:#1F6B4A">Lovable Plan:</strong><br>
+            ① 需要哪种认证？邮箱密码 / OAuth？<br>
+            ② 任务需要优先级和截止日期吗？<br>
+            ③ 建议方案：React + Supabase Auth + RLS<br>
+            <div style="margin-top:6px;font-size:11px;color:#718096">→ 计划保存到 .lovable/plan.md，可编辑</div>
+          </div>
+          <div style="text-align:center;font-size:11px;color:#C86848;font-weight:600">[ ✅ 批准计划 ] → 切入 Build Mode</div>
+        </div>
+      </div>
+      <div style="background:#f8fafc;border-radius:10px;padding:20px;border:1px solid #e2e8f0">
+        <div style="font-size:13px;font-weight:700;color:#C86848;margin-bottom:10px">⚡ Build Mode (Agent)</div>
+        <div style="font-size:12.5px;color:#4a5568;line-height:1.7">
+          <div style="background:var(--terracotta-light);padding:8px 12px;border-radius:6px;margin-bottom:6px;border-left:3px solid #C86848;font-size:11.5px">
+            <strong>Agent 自主执行：</strong><br>
+            ✦ 搜索代码库定位相关文件<br>
+            ✦ 按计划逐步编码，多文件编辑<br>
+            ✦ 检查 logs / 网络请求自动调试<br>
+            ✦ 必要时搜索 Web 获取文档/图片
+          </div>
+          <div style="background:#fff;padding:8px 12px;border-radius:6px;border:1px solid #e2e8f0;font-size:11.5px">
+            <strong>SubAgent 并行处理 (2026.05):</strong><br>
+            🔍 Researcher → 读代码回答上下文<br>
+            🔎 Reviewer → 验证修改无副作用<br>
+            🔗 Synthesiser → 合并并行结果
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-caption">
+      Plan Mode 每条消息固定 1 credit，不修改代码，纯推理；Build Mode 按复杂度弹性计费（0.5~多个 credit），自主执行多步编辑。<br>
+      <strong>来源：</strong>docs.lovable.dev/features/agent-mode + lovable.dev/faq/ai-agent/plan-mode
+    </div>
+  </div>
+</div>
+
+<!-- Demo Panel: Visual Editor + Draw-to-Build -->
+<div class="demo">
+  <div class="demo-header">
+    <span class="demo-dot r"></span><span class="demo-dot y"></span><span class="demo-dot g"></span>
+    <span class="demo-label">Visual Editor + Draw-to-Build 交互模式</span>
+  </div>
+  <div class="demo-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="text-align:center">
+        <div style="background:#f0fdf4;border-radius:12px;padding:32px 20px;border:1px dashed #86efac">
+          <div style="font-size:40px;margin-bottom:12px">🖱️</div>
+          <div style="font-size:14px;font-weight:700;color:#1F6B4A">Visual Editor</div>
+          <div style="font-size:12.5px;color:#4a5568;margin-top:8px;line-height:1.6">直接在预览中<strong>点击元素</strong>修改文本、颜色、Tailwind 类名、图片。<br>不消耗 prompt credit。</div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <div style="background:var(--terracotta-light);border-radius:12px;padding:32px 20px;border:1px dashed #f5d0c5">
+          <div style="font-size:40px;margin-bottom:12px">✏️</div>
+          <div style="font-size:14px;font-weight:700;color:#C86848">Draw-to-Build</div>
+          <div style="font-size:12.5px;color:#4a5568;margin-top:8px;line-height:1.6">在画布上<strong>画草图/标注</strong>，AI 自动转换为生产级 React 组件代码。</div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-caption">
+      Visual Editor 是 credit 节省器——微调阶段避免消耗 prompt 配额。Draw-to-Build 适合有设计直觉但不会写代码的用户快速表达 UI 意图。
+    </div>
+  </div>
+</div>
+
+<!-- Demo Panel: Real-time Preview -->
+<div class="demo">
+  <div class="demo-header">
+    <span class="demo-dot r"></span><span class="demo-dot y"></span><span class="demo-dot g"></span>
+    <span class="demo-label">实时预览 — AI 一边写代码，用户同步看到效果</span>
+  </div>
+  <div class="demo-body">
+    <div style="display:flex;gap:0;border-radius:10px;overflow:hidden;border:1px solid #e2e8f0">
+      <div style="flex:1;background:#1e293b;padding:20px;font-family:monospace;font-size:11px;color:#94a3b8;line-height:1.8">
+        <div style="color:#7dd3fc">// AI 正在编码...</div>
+        <div><span style="color:#c084fc">import</span> { <span style="color:#fbbf24">Button</span> } <span style="color:#c084fc">from</span> <span style="color:#86efac">"@/components/ui/button"</span></div>
+        <div><span style="color:#c084fc">import</span> { <span style="color:#fbbf24">supabase</span> } <span style="color:#c084fc">from</span> <span style="color:#86efac">"@/lib/supabase"</span></div>
+        <div style="margin-top:6px"><span style="color:#c084fc">export function</span> <span style="color:#fbbf24">TaskList</span>() {</div>
+        <div>&nbsp;&nbsp;<span style="color:#c084fc">const</span> [tasks, setTasks] = <span style="color:#fbbf24">useState</span>([])</div>
+        <div>&nbsp;&nbsp;<span style="color:#7dd3fc">// 自动生成 CRUD 逻辑...</span></div>
+        <div style="color:#4ade80;margin-top:8px;font-weight:700">▌ 正在生成...</div>
+      </div>
+      <div style="flex:1;background:#ffffff;padding:20px;border-left:1px solid #e2e8f0">
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:10px;font-family:sans-serif">PREVIEW — project.lovable.app</div>
+        <div style="background:#f8fafc;border-radius:8px;padding:14px;border:1px solid #e2e8f0">
+          <div style="font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:10px;font-family:sans-serif">📋 My Tasks</div>
+          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:8px 12px;margin-bottom:6px;font-size:12px;font-family:sans-serif;display:flex;align-items:center;gap:8px">
+            <span style="color:#22c55e">●</span> Design landing page
+          </div>
+          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:8px 12px;margin-bottom:6px;font-size:12px;font-family:sans-serif;display:flex;align-items:center;gap:8px">
+            <span style="color:#f59e0b">●</span> Set up Stripe integration
+          </div>
+          <div style="background:#1F6B4A;color:#fff;border-radius:6px;padding:7px 14px;font-size:12px;text-align:center;margin-top:10px;font-family:sans-serif;font-weight:600">+ Add Task</div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-caption">
+      左侧：AI 正在实时生成 React/TypeScript 代码；右侧：预览窗口同步渲染结果。用户在任何时刻都能判断方向是否正确并及时干预。这种"边生成边渲染"的透明度是 Lovable 建立用户信任的关键设计。
+    </div>
+  </div>
+</div>
+
+<h3>其他关键功能</h3>
+<div class="feat-grid">
+  <div class="feat">
+    <div class="feat-icon green">🔗</div>
+    <h5>GitHub 双向同步</h5>
+    <p>代码实时 push 到 GitHub，支持 PR 审查。可在 Cursor / VS Code 中继续开发。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon orange">☁️</div>
+    <h5>Lovable Cloud</h5>
+    <p>内置后端（Supabase 开源技术）。数据库、认证、存储、Edge Functions 零配置。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon blue">🔌</div>
+    <h5>MCP Server (2026.07)</h5>
+    <p>应用可被 ChatGPT / Claude 直接调用。Lovable 是品类内首个提供一方 MCP Server 的产品。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon purple">👥</div>
+    <h5>多人实时协作</h5>
+    <p>Lovable 2.0 支持最多 20 人同时编辑同一应用（2026.02），所有计划免费。</p>
+  </div>
+</div>
+</section>
+
+<!-- ==================== ③-a 模型 ==================== -->
+<section id="tech-model">
+<h2>③-a 底层大模型</h2>
+
+<div class="callout grey">
+  <strong>信息来源置信度标签：</strong>
+  <span class="tag tag-ok">官方确认</span> 来自 Lovable/Anthropic 官方
+  <span class="tag tag-warn">第三方分析</span> 来自可信第三方
+  <span class="tag tag-no">未公开/推测</span> 需谨慎引用
+</div>
+
+<h3>多模型编排架构 — "Hydration Pattern"</h3>
+
+<div class="demo">
+  <div class="demo-header">
+    <span class="demo-dot r"></span><span class="demo-dot y"></span><span class="demo-dot g"></span>
+    <span class="demo-label">Lovable 多模型路由架构图</span>
+  </div>
+  <div class="demo-body" style="padding:28px 20px">
+    <svg viewBox="0 0 780 320" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;font-family:Inter,'Noto Sans SC',sans-serif;">
+      <defs>
+        <marker id="a2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#1F6B4A"/></marker>
+        <filter id="d2"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity=".06"/></filter>
+      </defs>
+      <!-- User input -->
+      <rect x="10" y="120" width="110" height="60" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" filter="url(#d2)"/>
+      <text x="65" y="146" text-anchor="middle" fill="#475569" font-size="12" font-weight="600">用户 Prompt</text>
+      <text x="65" y="164" text-anchor="middle" fill="#94a3b8" font-size="10">+ 项目上下文</text>
+      <!-- Arrow 1 -->
+      <line x1="120" y1="150" x2="160" y2="150" stroke="#1F6B4A" stroke-width="2" marker-end="url(#a2)"/>
+
+      <!-- Layer 1: Hydration -->
+      <rect x="162" y="80" width="180" height="140" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5" filter="url(#d2)"/>
+      <text x="252" y="100" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="700">LAYER 1: Context Hydration</text>
+      <rect x="178" y="112" width="148" height="24" rx="5" fill="#fff" stroke="#93c5fd" stroke-width="1"/>
+      <text x="252" y="128" text-anchor="middle" fill="#3b82f6" font-size="10.5" font-weight="600">GPT-4 Mini (快速)</text>
+      <text x="252" y="152" text-anchor="middle" fill="#64748b" font-size="10">• 智能文件选择</text>
+      <text x="252" y="166" text-anchor="middle" fill="#64748b" font-size="10">• 上下文筛选 & 准备</text>
+      <text x="252" y="180" text-anchor="middle" fill="#64748b" font-size="10">• 判断新建 vs 修改文件</text>
+      <rect x="178" y="190" width="148" height="18" rx="4" fill="#dbeafe"/>
+      <text x="252" y="203" text-anchor="middle" fill="#2563EB" font-size="9" font-weight="600">速度优先，成本最低</text>
+      <!-- Arrow 2 -->
+      <line x1="342" y1="150" x2="382" y2="150" stroke="#1F6B4A" stroke-width="2" marker-end="url(#a2)"/>
+
+      <!-- Layer 2: Main LLM -->
+      <rect x="384" y="80" width="180" height="140" rx="12" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5" filter="url(#d2)"/>
+      <text x="474" y="100" text-anchor="middle" fill="#166534" font-size="11" font-weight="700">LAYER 2: 主代码生成</text>
+      <rect x="400" y="112" width="148" height="24" rx="5" fill="#fff" stroke="#86efac" stroke-width="1"/>
+      <text x="474" y="128" text-anchor="middle" fill="#166534" font-size="10.5" font-weight="600">Claude Sonnet / Opus</text>
+      <text x="474" y="152" text-anchor="middle" fill="#64748b" font-size="10">• 核心代码生成</text>
+      <text x="474" y="166" text-anchor="middle" fill="#64748b" font-size="10">• 复杂推理 & 架构决策</text>
+      <text x="474" y="180" text-anchor="middle" fill="#64748b" font-size="10">• Agent 自主调试</text>
+      <rect x="400" y="190" width="148" height="18" rx="4" fill="#dcfce7"/>
+      <text x="474" y="203" text-anchor="middle" fill="#166534" font-size="9" font-weight="600">一次大调用，能力最强</text>
+      <!-- Arrow 3 -->
+      <line x1="564" y1="150" x2="604" y2="150" stroke="#1F6B4A" stroke-width="2" marker-end="url(#a2)"/>
+
+      <!-- Layer 3: Post-process -->
+      <rect x="606" y="80" width="160" height="140" rx="12" fill="#fdf4ff" stroke="#d8b4fe" stroke-width="1.5" filter="url(#d2)"/>
+      <text x="686" y="100" text-anchor="middle" fill="#7c3aed" font-size="11" font-weight="700">LAYER 3: 后处理</text>
+      <rect x="618" y="112" width="136" height="24" rx="5" fill="#fff" stroke="#d8b4fe" stroke-width="1"/>
+      <text x="686" y="128" text-anchor="middle" fill="#7c3aed" font-size="10.5" font-weight="600">快速模型 (可选)</text>
+      <text x="686" y="152" text-anchor="middle" fill="#64748b" font-size="10">• 结果验证</text>
+      <text x="686" y="166" text-anchor="middle" fill="#64748b" font-size="10">• 错误检查</text>
+      <text x="686" y="180" text-anchor="middle" fill="#64748b" font-size="10">• 输出格式化</text>
+      <rect x="618" y="190" width="136" height="18" rx="4" fill="#f3e8ff"/>
+      <text x="686" y="203" text-anchor="middle" fill="#7c3aed" font-size="9" font-weight="600">快速收尾，质量兜底</text>
+
+      <!-- Bottom note -->
+      <text x="10" y="260" fill="#1F6B4A" font-size="11" font-weight="600">设计原则:</text>
+      <text x="88" y="260" fill="#475569" font-size="10.5">"最小化顺序模型调用次数，以响应速度为第一优先级"</text>
+      <text x="10" y="280" fill="#94a3b8" font-size="10">来源: ZenML LLMOps Database (创始人演讲) + Anthropic 官方案例</text>
+
+      <!-- Key insight callout -->
+      <rect x="10" y="295" width="756" height="20" rx="4" fill="#fef3c7"/>
+      <text x="18" y="309" fill="#92400e" font-size="10" font-weight="600">⚡ 关键洞察: Haiku benchmark 后发现它会替代 Sonnet（主模型）而非 Mini（预处理），因为 Hydration 层速度比能力更重要</text>
+    </svg>
+  </div>
+</div>
+
+<h3>模型选择的里程碑效应</h3>
+<div class="card green-accent">
+  <p style="margin-bottom:4px"><strong style="color:var(--green)">Claude Sonnet 3.5</strong> — "the first model that made agents work" <span class="tag tag-ok">官方确认</span></p>
+  <p style="margin-bottom:4px"><strong style="color:var(--green)">Claude Opus 4.5</strong> — "the next big step change in reliability on long-horizon tasks, unlocking a new class of projects" <span class="tag tag-ok">官方确认</span></p>
+  <p style="margin-bottom:0;font-size:13px;color:var(--text-3)">—— Alexandre Pesant, Lovable Product Lead (Anthropic 官方案例)</p>
+</div>
+</section>
+
+<!-- ==================== ③-b Harness ==================== -->
+<section id="tech-harness">
+<h2>③-b Agent Harness 实现</h2>
+
+<h3>为什么拒绝复杂 Multi-Agent</h3>
+<div class="demo">
+  <div class="demo-header"><span class="demo-dot r"></span><span class="demo-dot y"></span><span class="demo-dot g"></span><span class="demo-label">Lovable 的 Agent 架构演进决策</span></div>
+  <div class="demo-body">
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center">
+      <div style="background:#fee2e2;border-radius:10px;padding:18px;border:1px solid #fca5a5">
+        <div style="font-size:13px;font-weight:700;color:#991b1b;margin-bottom:8px">❌ 早期方案（已废弃）</div>
+        <div style="font-size:12px;color:#7f1d1d;line-height:1.7">
+          复杂多 Agent 系统，类 Devin 架构<br>
+          多个 Agent 互相通信协调<br><br>
+          <strong>问题：</strong><br>
+          ① 准确率更低<br>
+          ② 失败时用户完全困惑<br>
+          ③ 等待数分钟后遇到失败
+        </div>
+      </div>
+      <div style="font-size:24px;color:var(--green)">→</div>
+      <div style="background:#dcfce7;border-radius:10px;padding:18px;border:1px solid #86efac">
+        <div style="font-size:13px;font-weight:700;color:#166534;margin-bottom:8px">✅ 当前方案</div>
+        <div style="font-size:12px;color:#14532d;line-height:1.7">
+          Main Agent + 3 轻量 SubAgent<br>
+          3-step 链路（快→大→快）<br><br>
+          <strong>核心哲学：</strong><br>
+          "As fast and as simple for the<br>user to understand as possible"
+        </div>
+      </div>
+    </div>
+    <div class="demo-caption"><strong>来源：</strong>ZenML LLMOps Database (Anton Osika 演讲, 2024)</div>
+  </div>
+</div>
+
+<h3>上下文管理策略</h3>
+<div class="card accent">
+  <div class="card-title">关键发现</div>
+  <p style="color:var(--text)">Lovable 发现将所有项目文件喂给 LLM <strong>会降低模型表现</strong>（"LLMs become more stupid when looking at too many things at once"）。因此用 LLM 自身做预处理，智能选择与当前任务相关的文件子集。</p>
+  <p style="margin-bottom:0;font-size:13px;color:var(--text-3)">这验证了"聚焦上下文 > 完整上下文"的设计原则。<span class="tag tag-ok">官方确认</span></p>
+</div>
+
+<h3>Prompt 改进与回归测试</h3>
+<p>Prompt 修改遵循严格流程：诊断问题 → 修改 prompt → 手动验证 → <strong>对历史查询库做回归测试</strong> → 确认无 regression → 上线。团队做过 fine-tuning 实验但目前不在核心流程中。 <span class="tag tag-ok">官方确认</span></p>
+</section>
+
+<!-- ==================== ③-c 技术栈 ==================== -->
+<section id="tech-stack">
+<h2>③-c 模板库 / 脚手架</h2>
+
+<h3>固定技术栈 — "Opinionated Stack"</h3>
+
+<div class="demo">
+  <div class="demo-header"><span class="demo-dot r"></span><span class="demo-dot y"></span><span class="demo-dot g"></span><span class="demo-label">Lovable 生成的应用架构</span></div>
+  <div class="demo-body" style="padding:24px">
+    <svg viewBox="0 0 740 260" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;font-family:Inter,'Noto Sans SC',sans-serif;">
+      <defs><filter id="d3"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity=".06"/></filter></defs>
+      <!-- Frontend column -->
+      <rect x="10" y="10" width="230" height="240" rx="12" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5" filter="url(#d3)"/>
+      <text x="125" y="34" text-anchor="middle" fill="#166534" font-size="12" font-weight="700">🖥 FRONTEND（浏览器）</text>
+      <rect x="26" y="48" width="198" height="28" rx="6" fill="#fff" stroke="#86efac" stroke-width="1"/><text x="125" y="66" text-anchor="middle" fill="#166534" font-size="11" font-weight="600">React + TypeScript</text>
+      <rect x="26" y="84" width="198" height="28" rx="6" fill="#fff" stroke="#86efac" stroke-width="1"/><text x="125" y="102" text-anchor="middle" fill="#166534" font-size="11" font-weight="600">Vite（构建）</text>
+      <rect x="26" y="120" width="198" height="28" rx="6" fill="#fff" stroke="#86efac" stroke-width="1"/><text x="125" y="138" text-anchor="middle" fill="#166534" font-size="11" font-weight="600">Tailwind CSS（样式）</text>
+      <rect x="26" y="156" width="198" height="28" rx="6" fill="#fff" stroke="#86efac" stroke-width="1"/><text x="125" y="174" text-anchor="middle" fill="#166534" font-size="11" font-weight="600">shadcn/ui（组件库）</text>
+      <rect x="26" y="192" width="198" height="28" rx="6" fill="#fff" stroke="#86efac" stroke-width="1"/><text x="125" y="210" text-anchor="middle" fill="#166534" font-size="11" font-weight="600">React Router（路由）</text>
+      <text x="125" y="240" text-anchor="middle" fill="#86efac" font-size="9" font-weight="500">固定，不支持 Vue/Angular</text>
+
+      <!-- Arrows -->
+      <text x="262" y="100" fill="#C86848" font-size="14" font-weight="700">⟷</text>
+      <text x="254" y="120" fill="#94a3b8" font-size="9">PostgREST</text>
+      <text x="262" y="170" fill="#C86848" font-size="14" font-weight="700">⟷</text>
+      <text x="253" y="190" fill="#94a3b8" font-size="9">WebSocket</text>
+
+      <!-- Backend column -->
+      <rect x="290" y="10" width="230" height="240" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5" filter="url(#d3)"/>
+      <text x="405" y="34" text-anchor="middle" fill="#2563EB" font-size="12" font-weight="700">⚙ BACKEND（Supabase）</text>
+      <rect x="306" y="48" width="198" height="28" rx="6" fill="#fff" stroke="#93c5fd" stroke-width="1"/><text x="405" y="66" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="600">PostgreSQL 数据库</text>
+      <rect x="306" y="84" width="198" height="28" rx="6" fill="#fff" stroke="#93c5fd" stroke-width="1"/><text x="405" y="102" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="600">Supabase Auth（认证）</text>
+      <rect x="306" y="120" width="198" height="28" rx="6" fill="#fff" stroke="#93c5fd" stroke-width="1"/><text x="405" y="138" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="600">Supabase Storage（存储）</text>
+      <rect x="306" y="156" width="198" height="28" rx="6" fill="#fff" stroke="#93c5fd" stroke-width="1"/><text x="405" y="174" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="600">Edge Functions（Deno）</text>
+      <rect x="306" y="192" width="198" height="28" rx="6" fill="#fff" stroke="#93c5fd" stroke-width="1"/><text x="405" y="210" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="600">Realtime（WebSocket）</text>
+      <text x="405" y="240" text-anchor="middle" fill="#93c5fd" font-size="9" font-weight="500">浏览器直连 PostgREST，无中间层</text>
+
+      <!-- Deploy column -->
+      <rect x="540" y="10" width="190" height="240" rx="12" fill="#fdf4ff" stroke="#d8b4fe" stroke-width="1.5" filter="url(#d3)"/>
+      <text x="635" y="34" text-anchor="middle" fill="#7c3aed" font-size="12" font-weight="700">🚀 部署 & 集成</text>
+      <rect x="556" y="48" width="158" height="28" rx="6" fill="#fff" stroke="#d8b4fe" stroke-width="1"/><text x="635" y="66" text-anchor="middle" fill="#7c3aed" font-size="11" font-weight="600">Cloudflare CDN</text>
+      <rect x="556" y="84" width="158" height="28" rx="6" fill="#fff" stroke="#d8b4fe" stroke-width="1"/><text x="635" y="102" text-anchor="middle" fill="#7c3aed" font-size="11" font-weight="600">HTTPS + 自定义域名</text>
+      <rect x="556" y="120" width="158" height="28" rx="6" fill="#fff" stroke="#d8b4fe" stroke-width="1"/><text x="635" y="138" text-anchor="middle" fill="#7c3aed" font-size="11" font-weight="600">GitHub 双向同步</text>
+      <rect x="556" y="156" width="158" height="28" rx="6" fill="#fff" stroke="#d8b4fe" stroke-width="1"/><text x="635" y="174" text-anchor="middle" fill="#7c3aed" font-size="11" font-weight="600">MCP Server</text>
+      <rect x="556" y="192" width="158" height="28" rx="6" fill="#fff" stroke="#d8b4fe" stroke-width="1"/><text x="635" y="210" text-anchor="middle" fill="#7c3aed" font-size="11" font-weight="600">20+ Connectors</text>
+      <text x="635" y="240" text-anchor="middle" fill="#d8b4fe" font-size="9" font-weight="500">Stripe / Notion / Shopify / Slack...</text>
+    </svg>
+    <div class="demo-caption"><strong>来源：</strong>ZenML 案例 + vibe-eval.com 技术栈安全分析 + docs.lovable.dev</div>
+  </div>
+</div>
+
+<div class="callout info">
+  <strong>为什么 Opinionated 是关键：</strong>"The LLMs perform better when guided toward specific patterns rather than being asked to handle arbitrary code." 约束框架后，团队可持续针对这套栈做 prompt 优化和回归测试，可靠性显著提升。<span class="tag tag-ok">官方确认</span>
+</div>
+</section>
+
+<!-- ==================== ③-d 预览环境 ==================== -->
+<section id="tech-preview">
+<h2>③-d 执行与预览环境</h2>
+
+<div class="table-wrap">
+<table>
+  <tr><th>环境</th><th>技术方案</th><th>说明</th><th>来源</th></tr>
+  <tr><td><strong>Preview 沙箱</strong></td><td>独立 Dev Server / sandbox</td><td>编辑时启动，含调试工具，不影响已部署版本</td><td><span class="tag tag-ok">官方博客</span></td></tr>
+  <tr><td><strong>Live 部署</strong></td><td>Cloudflare CDN</td><td>production-optimized，无调试工具，HTTPS</td><td><span class="tag tag-ok">官方博客</span></td></tr>
+  <tr><td><strong>后端运行时</strong></td><td>Supabase (PostgREST + Deno Edge Functions)</td><td>浏览器直连 PostgREST，无中间 API 网关</td><td><span class="tag tag-warn">第三方分析</span></td></tr>
+  <tr><td><strong>Test 环境</strong></td><td>Lovable Cloud 分离的 Test DB</td><td>2026.03.24 后新项目不再支持，仅历史项目保留</td><td><span class="tag tag-ok">官方文档</span></td></tr>
+</table>
+</div>
+
+<div class="callout warn">
+  <strong>⚠ 注意：</strong>Lovable 的预览是否使用类似 Bolt 的 WebContainer（纯浏览器 Node.js）<strong>官方未明确公开</strong>。从已有描述看更接近服务端 sandbox + 前端即时渲染，而非 Bolt 的纯客户端方案。<span class="tag tag-no">未公开/推测</span>
+</div>
+</section>
+
+<!-- ==================== ③-e 对比 ==================== -->
+<section id="tech-compare">
+<h2>③-e 同类产品技术对比</h2>
+
+<div class="table-wrap">
+<table>
+  <tr>
+    <th style="width:90px">维度</th><th>Lovable</th><th>v0 (Vercel)</th><th>Bolt.new</th><th>Replit Agent</th>
+  </tr>
+  <tr><td><strong>技术栈</strong></td><td>React+Vite+Tailwind+shadcn (固定)</td><td>Next.js+shadcn (Vercel 生态)</td><td>多框架 (React/Vue/Svelte/Angular)</td><td>多语言 (Python/Node/Go…)</td></tr>
+  <tr><td><strong>后端</strong></td><td>Supabase 内置</td><td>Vercel Postgres + API routes</td><td>Supabase (较新)</td><td>内置 KV/SQL + 完整 Linux</td></tr>
+  <tr><td><strong>预览</strong></td><td>服务端 sandbox</td><td>Vercel edge</td><td><strong>WebContainer (浏览器内)</strong></td><td>云端 VM</td></tr>
+  <tr><td><strong>AI 模型</strong></td><td>Claude 主 + GPT 辅</td><td>多模型</td><td>多模型</td><td>多模型</td></tr>
+  <tr><td><strong>Agent 架构</strong></td><td>Main+3 SubAgent，拒绝复杂化</td><td>组件级生成</td><td>Agent 3/4</td><td>最自主，30+ 集成</td></tr>
+  <tr><td><strong>核心优势</strong></td><td>非技术用户全栈闭环最优</td><td>UI 组件质量最高</td><td>浏览器内执行最快</td><td>工程灵活度最高</td></tr>
+  <tr><td><strong>ARR</strong></td><td>~$500M</td><td>未公开</td><td>~$40M</td><td>~$240M (目标$1B)</td></tr>
+  <tr><td><strong>估值</strong></td><td><strong>$133 亿</strong></td><td>N/A (Vercel子产品)</td><td>$7 亿</td><td><strong>$90 亿</strong></td></tr>
+</table>
+</div>
+</section>
+
+<!-- ==================== 深度分析：UI 质量 ==================== -->
+<section id="why-ui">
+<h2>深度分析：同一个 Claude，为什么 Lovable 能生成高质量 UI？</h2>
+
+<div class="card accent" style="border-left-color:var(--terracotta)">
+  <div class="card-title" style="color:var(--terracotta)">Anthropic 官方承认的问题</div>
+  <p style="font-size:15px;color:var(--text);font-style:italic;margin-bottom:6px">"You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic."</p>
+  <p style="font-size:12px;color:var(--text-3);margin-bottom:0">—— Anthropic 官方 Prompt Engineering 文档 (<a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices" target="_blank">platform.claude.com</a>)，2026.08 <span class="tag tag-ok">官方确认</span></p>
+</div>
+
+<p>Anthropic 自己承认：裸模型倾向于收敛到"分布内"的通用输出，在前端设计中表现为被用户称为 <strong>"AI slop"</strong> 的平庸审美——安全的中间值、默认字体、均匀的颜色分布、无个性的布局。</p>
+<p>那么 Lovable 做了什么？答案不在模型层——<strong>Lovable 和 Claude 网页版用的是同一个 Claude Sonnet/Opus</strong>（Anthropic 官方案例确认）。差异 100% 来自<strong>模型之上的七层 Harness 增值</strong>的叠加效应。每一层单独贡献 10-20% 的质量提升，叠加起来就产生了"Lovable 的模型比裸 Claude 强"的用户感知。</p>
+
+<h3>一个第三方验证的精确对比</h3>
+<div class="card green-accent">
+  <p style="color:var(--text)">一个开发者做了控制变量实验：同一条 prompt，三个环境——Claude web（有 Anthropic 内置 frontend-design skill）→ Claude Code 裸跑 → Claude Code + frontend-design plugin。结果：<strong>有 skill/plugin 的版本显著优于裸跑版</strong>——三种 Google Fonts、boot sequence 动画、noise texture 效果 vs 纯系统 monospace 的基础布局。同一个模型，有无 design skill 的差异是巨大的。</p>
+  <p style="font-size:12px;color:var(--text-3);margin-bottom:0">来源: baremetaldigest.substack.com <span class="tag tag-warn">第三方验证</span></p>
+</div>
+</section>
+
+<!-- ==================== 七层 Harness ==================== -->
+<section id="seven-layers">
+<h2>七层 Harness 增值拆解</h2>
+
+<div class="demo">
+  <div class="demo-header"><span class="demo-dot r"></span><span class="demo-dot y"></span><span class="demo-dot g"></span><span class="demo-label">Lovable 七层 Harness 增值全景</span></div>
+  <div class="demo-body" style="padding:28px 20px">
+    <svg viewBox="0 0 780 380" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;font-family:Inter,'Noto Sans SC',sans-serif;">
+      <defs><filter id="dss"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity=".05"/></filter></defs>
+      <rect x="60" y="325" width="660" height="38" rx="7" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5" filter="url(#dss)"/>
+      <text x="80" y="349" fill="#166534" font-size="11.5" font-weight="700">L1 组件库约束</text><text x="240" y="349" fill="#4a5568" font-size="10.5">shadcn/ui 114K⭐ + Radix + Tailwind → 所有 UI 从预设计美观组件合成</text>
+      <rect x="60" y="281" width="660" height="38" rx="7" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5" filter="url(#dss)"/>
+      <text x="80" y="305" fill="#1e40af" font-size="11.5" font-weight="700">L2 Design Token</text><text x="240" y="305" fill="#4a5568" font-size="10.5">CSS Variables (--primary, --radius…) → 零硬编码值，全局一致性</text>
+      <rect x="60" y="237" width="660" height="38" rx="7" fill="#fdf4ff" stroke="#d8b4fe" stroke-width="1.5" filter="url(#dss)"/>
+      <text x="80" y="261" fill="#6b21a8" font-size="11.5" font-weight="700">L3 Design System 执行</text><text x="260" y="261" fill="#4a5568" font-size="10.5">偏离检测 + 自动验证 wiring + 捕获 raw colors + 跨项目同步</text>
+      <rect x="60" y="193" width="660" height="38" rx="7" fill="#fef3c7" stroke="#fbbf24" stroke-width="1.5" filter="url(#dss)"/>
+      <text x="80" y="217" fill="#92400e" font-size="11.5" font-weight="700">L4 System Prompt</text><text x="240" y="217" fill="#4a5568" font-size="10.5">设计模式 + 合成规则 + 审美 defaults + 持续 A/B 迭代</text>
+      <rect x="60" y="149" width="660" height="38" rx="7" fill="#fdf2f8" stroke="#f9a8d4" stroke-width="1.5" filter="url(#dss)"/>
+      <text x="80" y="173" fill="#9d174d" font-size="11.5" font-weight="700">L5 Context Hydration</text><text x="260" y="173" fill="#4a5568" font-size="10.5">GPT-4 Mini 预处理 → 智能文件选择 → 聚焦上下文</text>
+      <rect x="60" y="105" width="660" height="38" rx="7" fill="var(--terracotta-light)" stroke="var(--terracotta)" stroke-width="1.5" filter="url(#dss)"/>
+      <text x="80" y="129" fill="#9a3412" font-size="11.5" font-weight="700">L6 实时预览循环</text><text x="260" y="129" fill="#4a5568" font-size="10.5">边生成边渲染 → 用户即时纠偏 → Visual Editor 无 credit 微调</text>
+      <rect x="60" y="61" width="660" height="38" rx="7" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" filter="url(#dss)"/>
+      <text x="80" y="85" fill="#334155" font-size="11.5" font-weight="700">L7 回归测试</text><text x="240" y="85" fill="#4a5568" font-size="10.5">每次 prompt 修改 → 历史查询库全量回归 → 质量只升不降</text>
+      <rect x="160" y="367" width="460" height="5" rx="3" fill="#94a3b8" opacity=".25"/>
+      <text x="390" y="385" text-anchor="middle" fill="#94a3b8" font-size="9.5">Claude Sonnet / Opus（裸模型 — 同 claude.ai 对话版一样的底座）</text>
+      <text x="390" y="48" text-anchor="middle" fill="#166534" font-size="10.5" font-weight="600">↑ 用户感知到的"Lovable UI 质量" = 裸模型 + 七层 Harness 叠加</text>
+    </svg>
+  </div>
+</div>
+
+<h3>L1: shadcn/ui 组件库约束 — 质量差异的最大单一来源</h3>
+<p>当你在 Claude 网页版说"给我做一个 dashboard"，Claude 需要从零开始做无穷决策——什么组件库、颜色体系、间距规则、字体？模型选择"安全中间值"，输出就是 AI slop。Lovable 的做法：<strong>所有 UI 必须从 shadcn/ui 组件合成</strong>——模型的任务从"从空白画布创作 UI"变成"从已知美观组件中选择和组合"。</p>
+<div class="fg">
+  <div class="fi hl"><h5>🎨 预设计美观组件</h5>shadcn/ui 的 Button、Dialog、Form、Card 等自带精致设计、无障碍支持、键盘导航、ARIA。模型只需合成，无需发明。</div>
+  <div class="fi hl"><h5>📐 固定间距与排版</h5>Tailwind 的 spacing scale（4px 基准网格）和 typography scale 消除了"padding 12 还是 16"的决策。<code>p-3</code> vs <code>p-4</code> 就是答案。</div>
+  <div class="fi hl"><h5>📊 训练数据优势</h5>shadcn/ui 是 GitHub 114K+ Stars 项目。Claude 训练数据中有海量 shadcn 用法，模型对这套库的"理解"远深于其他选择。</div>
+  <div class="fi hl"><h5>🧩 合成 > 创作</h5>约束越多，输出越可控越一致。范式从"自由创作"变为"受控合成"，这是 Lovable 质量的根本来源。</div>
+</div>
+
+<h3>L2: Design Token 系统</h3>
+<p>所有 shadcn/ui 组件引用 CSS 变量（<code>--background</code>, <code>--primary</code>, <code>--radius</code>…），零硬编码值。改一个 token，全局所有组件自动跟随。主题切换只是数据变更而非样式重写。裸模型会在不同组件中使用不同的硬编码颜色值——Design Token 系统杜绝了这种不一致性。</p>
+
+<h3>L3: Design System 强制执行引擎 — 最被低估的 Harness 层</h3>
+<div class="card green-accent">
+  <div class="card-title">Lovable Design System 功能 (docs.lovable.dev/features/design-systems) <span class="tag tag-ok">官方确认</span></div>
+  <p style="color:var(--text)">Lovable 的 Design System 不是被动参考——是<strong>带有强制执行机制的活系统</strong>：</p>
+  <p style="color:var(--text);font-size:13.5px;line-height:1.8">
+    ① <strong>集中式 Truth Source</strong>：组件、token、样式统一来源，本身是一个可编辑的 Lovable 项目<br>
+    ② <strong>自动验证 Wiring</strong>：每次连接/更新后自动检查 build config、CSS imports、theme providers、dependencies<br>
+    ③ <strong>偏离检测（关键）</strong>：Agent 在编码过程中<strong>主动捕获</strong>——raw colors（硬编码颜色）、custom components（应用 Design System 的地方自建组件）、其他偏离行为<br>
+    ④ <strong>跨项目同步</strong>：一键更新所有已连接项目
+  </p>
+  <p style="font-size:12.5px;color:var(--terracotta);font-weight:600;margin-bottom:0">⚠ 这是裸模型做不到的核心原因：Claude 网页版不会检查"颜色是否在 token 体系内"、"组件是否符合 Design System"。Lovable 的 Agent 在每轮编码中内嵌这个审查。</p>
+</div>
+
+<h3>L4: System Prompt 精密工程</h3>
+<p>Lovable 官方 prompting docs 要求用户提供 5 层信息——High-Level Description → Look & Feel（情绪审美）→ Brand Guidelines（精确到字体、颜色 hex）→ UI Library → Feature Details。Lovable 的 System Prompt 很可能已内置了这 5 层的 <strong>default 值</strong>，当用户只说"做一个 dashboard"时，prompt 已替用户填充了审美方向和组件约束。裸 Claude 没有这些 defaults，所以输出平庸。<span class="tag tag-inferred">未公开/推测</span></p>
+
+<h3>L5-L7: Context Hydration + 实时预览 + 回归测试</h3>
+<p>这三层在前文③-b 中已详述。核心要点复述：L5 用小模型预筛选上下文（"LLMs become more stupid when looking at too many things at once"）；L6 实时预览创造秒级纠偏反馈循环；L7 回归测试确保 prompt 改进只升不降。<span class="tag tag-ok">ZenML 案例</span></p>
+</section>
+
+<!-- ==================== 套件复现路径 ==================== -->
+<section id="replicate">
+<h2>专家套件 Skill 复现路径</h2>
+
+<h3>Lovable 功能模块拆解 — 按复现难度排序</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>模块</th><th>Lovable 实现</th><th>难度</th><th>专家套件 Skill 映射</th></tr>
+  <tr><td><strong>固定技术栈</strong></td><td>React + Vite + Tailwind + shadcn</td><td style="color:#166534;font-weight:600">★☆☆</td><td>SKILL.md 硬编码技术栈约束 + 脚手架模板</td></tr>
+  <tr><td><strong>Design Token</strong></td><td>CSS Variables + globals.css</td><td style="color:#166534;font-weight:600">★☆☆</td><td>token 定义文件纳入 Skill package；prompt 约束"引用 token 不硬编码"</td></tr>
+  <tr><td><strong>System Prompt</strong></td><td>5 层设计指令 + 审美 defaults</td><td style="color:#92400e;font-weight:600">★★☆</td><td>SKILL.md 写入设计约束；需持续迭代 + 回归测试</td></tr>
+  <tr><td><strong>Plan Mode</strong></td><td>独立规划层，.md 可编辑</td><td style="color:#92400e;font-weight:600">★★☆</td><td>Skill routing: plan 态 → Opus → 计划文档 → 确认 → build 态执行</td></tr>
+  <tr><td><strong>Context Hydration</strong></td><td>小模型预筛选文件</td><td style="color:#92400e;font-weight:600">★★☆</td><td>harness 层: 轻量模型做 file relevance scoring → top-K</td></tr>
+  <tr><td><strong>Design System 执行</strong></td><td>偏离检测 + 自动验证</td><td style="color:#991b1b;font-weight:600">★★★</td><td>Reviewer SubAgent 或 post-generation 检查 + lint 规则</td></tr>
+  <tr><td><strong>实时预览</strong></td><td>边生成边渲染 + Visual Editor</td><td style="color:#991b1b;font-weight:600">★★★</td><td>需 LinsyWork client iframe sandbox 基础设施</td></tr>
+  <tr><td><strong>Supabase 后端</strong></td><td>Cloud 内置 DB/Auth/Storage</td><td style="color:#991b1b;font-weight:600">★★★</td><td>平台级基础设施；初期可生成 Supabase 连接代码模板</td></tr>
+  <tr><td><strong>回归测试</strong></td><td>历史查询库全量回归</td><td style="color:#92400e;font-weight:600">★★☆</td><td>复用已建评测框架（200 题数据集 + 三版对比机制）</td></tr>
+</table>
+</div>
+
+<h3>Skill Package 结构设计</h3>
+<div class="demo">
+  <div class="demo-header"><span class="demo-dot r"></span><span class="demo-dot y"></span><span class="demo-dot g"></span><span class="demo-label">lovable-replica-skill/ 目录结构</span></div>
+  <div class="demo-body">
+    <div style="background:#1e293b;border-radius:8px;padding:18px;font-family:monospace;font-size:12px;color:#94a3b8;line-height:1.9;overflow-x:auto">
+      <div style="color:#7dd3fc">lovable-replica-skill/</div>
+      <div>├── <span style="color:#fbbf24">plugin.json</span>          <span style="color:#475569"># 16 字段标准元数据</span></div>
+      <div>├── <span style="color:#fbbf24">SKILL.md</span>             <span style="color:#475569"># 核心指令（5 条设计约束 + 合成规则 + 自检规则）</span></div>
+      <div>├── <span style="color:#fbbf24">README.md</span></div>
+      <div>├── <span style="color:#fbbf24">CONNECTORS.md</span>        <span style="color:#475569"># Supabase / GitHub 连接器声明</span></div>
+      <div>├── templates/</div>
+      <div>│   ├── <span style="color:#86efac">vite-react-shadcn/</span> <span style="color:#475569"># 脚手架（含 globals.css token 定义）</span></div>
+      <div>│   ├── <span style="color:#86efac">supabase-schema.sql</span> <span style="color:#475569"># 常用数据模式模板</span></div>
+      <div>│   └── <span style="color:#86efac">auth-patterns/</span>    <span style="color:#475569"># 认证模式模板</span></div>
+      <div>├── prompts/</div>
+      <div>│   ├── <span style="color:#86efac">plan-mode.md</span>      <span style="color:#475569"># Plan 态专用 prompt</span></div>
+      <div>│   ├── <span style="color:#86efac">build-mode.md</span>     <span style="color:#475569"># Build 态专用 prompt</span></div>
+      <div>│   └── <span style="color:#86efac">review-mode.md</span>    <span style="color:#475569"># 生成后自审（偏离检测）</span></div>
+      <div>└── eval/</div>
+      <div>    └── <span style="color:#86efac">test-cases.json</span>  <span style="color:#475569"># 回归测试用例集</span></div>
+    </div>
+    <div class="demo-caption">SKILL.md 五条核心指令：① 技术栈硬约束（React+Tailwind+shadcn）② Token 引用规则（禁硬编码）③ 合成模式（从已有组件合成）④ 审美方向 defaults（参考 Anthropic frontend_aesthetics）⑤ 生成后自审（检查偏离）</div>
+  </div>
+</div>
+</section>
+
+<!-- ==================== ④ 商业 ==================== -->
+<section id="business">
+<h2>④ 商业模式</h2>
+
+<h3>定价策略（2026.08 verified）</h3>
+
+<div class="demo">
+  <div class="demo-header"><span class="demo-dot r"></span><span class="demo-dot y"></span><span class="demo-dot g"></span><span class="demo-label">Lovable 定价方案一览</span></div>
+  <div class="demo-body" style="padding:20px">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+      <div style="border:1px solid #e2e8f0;border-radius:10px;padding:18px;text-align:center">
+        <div style="font-size:12px;font-weight:700;color:#94a3b8;margin-bottom:4px">FREE</div>
+        <div style="font-size:28px;font-weight:800;color:#1a1a1a">$0</div>
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:14px">/月</div>
+        <div style="font-size:12px;color:#4a5568;line-height:1.7;text-align:left">
+          ✓ 5 credit/日 (上限 30/月)<br>
+          ✓ 无限协作者<br>
+          ✓ 公开项目<br>
+          ✗ 无 Code Mode<br>
+          ✗ 无 top-up
+        </div>
+      </div>
+      <div style="border:2px solid #1F6B4A;border-radius:10px;padding:18px;text-align:center;background:#f0fdf4">
+        <div style="font-size:12px;font-weight:700;color:#1F6B4A;margin-bottom:4px">PRO ⭐</div>
+        <div style="font-size:28px;font-weight:800;color:#1F6B4A">$25</div>
+        <div style="font-size:11px;color:#166534;margin-bottom:14px">/月</div>
+        <div style="font-size:12px;color:#4a5568;line-height:1.7;text-align:left">
+          ✓ 100 credit/月 + 5/日<br>
+          ✓ Credit rollover<br>
+          ✓ 自定义域名<br>
+          ✓ Code Mode<br>
+          ✓ Top-up 可购
+        </div>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:10px;padding:18px;text-align:center">
+        <div style="font-size:12px;font-weight:700;color:#C86848;margin-bottom:4px">BUSINESS</div>
+        <div style="font-size:28px;font-weight:800;color:#1a1a1a">$50</div>
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:14px">/月</div>
+        <div style="font-size:12px;color:#4a5568;line-height:1.7;text-align:left">
+          ✓ 100 credit/月 + 5/日<br>
+          ✓ SSO 单点登录<br>
+          ✓ 角色权限 (RBAC)<br>
+          ✓ 安全中心<br>
+          ✓ 优先支持
+        </div>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:10px;padding:18px;text-align:center;background:#f8fafc">
+        <div style="font-size:12px;font-weight:700;color:#7c3aed;margin-bottom:4px">ENTERPRISE</div>
+        <div style="font-size:28px;font-weight:800;color:#1a1a1a">Custom</div>
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:14px">按需报价</div>
+        <div style="font-size:12px;color:#4a5568;line-height:1.7;text-align:left">
+          ✓ Volume pricing<br>
+          ✓ SCIM + 审计日志<br>
+          ✓ 专属 onboarding<br>
+          ✓ 发布管控<br>
+          ✓ 定制集成
+        </div>
+      </div>
+    </div>
+    <div class="demo-caption">年付享 2 个月免费（~17% 折扣）。Pro/Business 可在基础 100 credit 上购买更大月度额度。来源: lovable.dev/pricing (2026.08 verified)</div>
+  </div>
+</div>
+
+<h3>双层计费模型</h3>
+<p>Credit 是统一货币，同时覆盖三个消费面：<strong>构建</strong>（对话消息）、<strong>Cloud 运行时</strong>（已部署应用的 DB/存储/网络）、<strong>AI Features</strong>（部署应用中的 AI 调用）。一个有流量的应用即使不做修改也在持续消耗 credit。社区普遍反馈：一个含 auth 的 3 页 CRUD 应用需 150-250 credit。</p>
+</section>
+
+<!-- ==================== ⑤ 增长 ==================== -->
+<section id="growth">
+<h2>⑤ 增长策略</h2>
+
+<div class="feat-grid">
+  <div class="feat">
+    <div class="feat-icon green">🌊</div>
+    <h5>PLG 产品主导增长</h5>
+    <p>零门槛免费注册、无需信用卡、5 秒看到首个生成结果。即时满足感驱动自然传播。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon orange">🔍</div>
+    <h5>SEO 内容矩阵</h5>
+    <p>lovable.dev/guides/ 频道大量产出竞品对比文章，精准截获搜索流量，同时做产品教育和竞品防御。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon blue">🦠</div>
+    <h5>病毒传播机制</h5>
+    <p>免费项目公开 + lovable.app 域名 + "built with Lovable" badge = 每个应用都是品牌曝光入口。月访问 9 亿+。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon purple">🏢</div>
+    <h5>Bottom-up 企业渗透</h5>
+    <p>业务团队个人先用 → 部门采购 → 企业合同。Nursa 案例：VP 周末建产品 → CEO 给 200 人开通 → 退掉 10+ SaaS。</p>
+  </div>
+</div>
+
+<h3>生态护城河</h3>
+<p>MCP Server（品类唯一的一方 MCP）使 Lovable 应用可被任何 AI 助手调用 → 20+ Connectors（Stripe/Notion/Shopify/Slack） → Google Cloud Marketplace 上架 → Lovable 2.0 多人实时协作。从个人工具 → 团队平台 → AI Agent 生态中的应用层。</p>
+</section>
+
+<!-- ==================== ⑥ 启示 ==================== -->
+<section id="insights">
+<h2>⑥ 对林氏小龙虾 & 专家套件的启示</h2>
+
+<div class="insight">
+  <div class="insight-head">Harness 设计：简单可靠优于复杂自主</div>
+  <p>Lovable 最值得借鉴的技术决策：对复杂 Multi-Agent 架构的<strong>明确拒绝</strong>。"快模型预处理 → 一次大模型主调用 → 快模型后处理"的 3-step 链路，在准确率、速度、可理解性上全面优于复杂多 Agent 通信系统。</p>
+  <div class="mapping">
+    <strong>→ LinsyWork 映射：</strong>双引擎（LangGraph + Claude Agent SDK）可借鉴 Hydration Pattern——用轻量模型做知识库/历史对话的上下文筛选，再将精选上下文交给主模型推理。比全量灌入上下文窗口更有效。
+  </div>
+</div>
+
+<div class="insight">
+  <div class="insight-head">Plan-then-Execute 双阶段 Checkpoint</div>
+  <p>Plan Mode → Build Mode 将"理解意图"和"执行操作"解耦，中间插入人工批准点。计划物化为 <code>.lovable/plan.md</code> 可编辑文件。Plan 用 Opus 4.5（强推理），Build 用 Sonnet（快编码）。</p>
+  <div class="mapping">
+    <strong>→ 专家套件映射：</strong>与三态输入模式（default/plan/ask）高度对应。可借鉴：① Plan 阶段输出为可编辑结构化文档（比纯对话确认更有确定性）；② 按模式分配不同模型是低成本提升体验的好策略。
+  </div>
+</div>
+
+<div class="insight">
+  <div class="insight-head">Opinionated Stack 约束解空间</div>
+  <p>LLM 在受约束的模式空间中生成的可靠性远高于自由发挥。模板库、组件库、设计模式全部固定后，prompt 优化和回归测试的 ROI 才能真正叠加。</p>
+  <div class="mapping">
+    <strong>→ Skill 架构映射：</strong>每个 Skill Package 就是一个 opinionated stack。Lovable 的经验说明，越是约束清晰的 Skill，模型执行可靠性越高。进一步验证了 R&D 模板标准化（plugin.json 16 字段、SKILL.md frontmatter 4 字段）的方向正确性。
+  </div>
+</div>
+
+<div class="insight">
+  <div class="insight-head">Vibe-Coding 交互范式的产品化要素</div>
+  <p>Lovable 验证的三个范式要素：自然语言作为编程语言、对话作为开发环境、实时预览作为反馈循环。</p>
+  <div class="mapping">
+    <strong>→ LinsyWork 映射：</strong>① "边生成边渲染"的透明度——Skill 执行长任务时逐步展示中间结果而非等最终输出；② Visual Edit 作为 prompt 节省器——在 artifact panel 支持直接编辑生成结果的结构化字段，减少"帮我改一下XX"的对话轮次。
+  </div>
+</div>
+
+<div class="insight">
+  <div class="insight-head">评测基础设施是 Agent 产品的安全网</div>
+  <p>Lovable 的 prompt 改进必须对历史查询库做回归测试。创始人公开说"挑战任何竞品，赌 $1000 证明他们不是最好的"——这种自信来自系统化的评测能力。</p>
+  <div class="mapping">
+    <strong>→ 评测框架映射：</strong>与我们的 200 题知识库数据集、三版对比评估、证据报告标准方向一致。Lovable 的经验说明，<strong>在 Agent 产品中，评测基础设施的投资回报极高</strong>——它是 prompt 工程和模型切换的安全网。
+  </div>
+</div>
+</section>
+
+<!-- ==================== Qoder Work 对标 ==================== -->
+<section id="qoder">
+<h2>对标 Qoder Work — 产品形态参考</h2>
+<p>Qoder Work（通义灵码旗下桌面 AI Agent）的产品形态与 LinsyWork 高度相似：桌面端 AI 工作 Agent，本地文件操作，MCP 扩展，多模型路由。</p>
+<div class="table-wrap">
+<table>
+  <tr><th>维度</th><th>Qoder Work</th><th>Lovable</th><th>专家套件方案</th></tr>
+  <tr><td><strong>产品形态</strong></td><td>桌面 Agent，本地文件处理</td><td>浏览器全栈应用构建器</td><td>桌面 Agent (LinsyWork) + Skill 提供 Lovable 级能力</td></tr>
+  <tr><td><strong>工作模式</strong></td><td>Agent + Quest（自主委派）</td><td>Plan + Build</td><td>三态输入 (default/plan/ask)</td></tr>
+  <tr><td><strong>扩展体系</strong></td><td>Skills & Plugins + MCP</td><td>Connectors 20+ / MCP Server</td><td>Skill Package (plugin.json + SKILL.md)</td></tr>
+  <tr><td><strong>模型路由</strong></td><td>自动匹配最佳模型</td><td>小模型预处理 → 大模型生成</td><td>按 member/command 选择模型</td></tr>
+  <tr><td><strong>Expert Suite 概念</strong></td><td>"Package your team's expertise into a complete AI work suite — install once, share across org"</td><td>Design System 跨项目同步</td><td>专家套件 ZIP import/export</td></tr>
+  <tr><td><strong>核心差异</strong></td><td>偏编码/IDE，面向开发者</td><td>偏应用构建，面向非技术用户</td><td>面向企业业务场景（CEO/管理层/财务）</td></tr>
+</table>
+</div>
+<div class="callout info">
+  <strong>关键洞察：</strong>Qoder Work 的 Expert Suite 概念与我们高度一致。差异在于 Qoder 偏代码，我们偏业务决策。<strong>Lovable 的 vibe-coding 能力可作为专家套件中一个特殊 Skill（"前端应用快速构建"）来复现，而非重建整个 Lovable 产品。</strong>
+</div>
+</section>
+
+<!-- ==================== 实施路线图 ==================== -->
+<section id="roadmap">
+<h2>实施路线图建议</h2>
+
+<h3>分三阶段复现 Lovable 核心能力</h3>
+<div class="layer">
+  <div class="ln" style="background:var(--green)">P1</div>
+  <div class="lc">
+    <h4>Phase 1: Skill Package 基础版（2-3 周）</h4>
+    <p>核心价值：<strong>用 prompt 约束复现 Lovable 的 UI 质量</strong></p>
+    <p style="font-size:13px">① 编写 SKILL.md：技术栈约束 + Design Token 规则 + 合成模式指令 + 审美方向 defaults + 偏离自检<br>
+    ② 制作脚手架模板：vite-react-shadcn 项目模板（含 globals.css、tailwind.config、shadcn 组件目录）<br>
+    ③ 编写 Plan Mode 和 Build Mode 的分阶段 prompt 模板<br>
+    ④ 在 LinsyWork 中注册为 Skill，验证"describe → generate → preview"基本流程</p>
+  </div>
+  <div class="ln" style="background:var(--terracotta)">P2</div>
+  <div class="lc">
+    <h4>Phase 2: Harness 层增强（3-4 周）</h4>
+    <p>叠加 Context Hydration 和 Design System 检查</p>
+    <p style="font-size:13px">① Hydration Pattern：轻量模型做 file relevance scoring → top-K 选取<br>
+    ② Reviewer SubAgent：生成后自动检查 token 偏离、组件一致性<br>
+    ③ 回归测试基线：20-30 个典型 UI 生成用例建立评测数据集<br>
+    ④ Plan→Build 双模式 Skill 路由优化（Plan 用强推理，Build 用快编码）</p>
+  </div>
+  <div class="ln" style="background:var(--purple)">P3</div>
+  <div class="lc">
+    <h4>Phase 3: 平台级能力（需跨团队协作）</h4>
+    <p>超出 Skill 范畴，需平台/前端支持</p>
+    <p style="font-size:13px">① LinsyWork client 嵌入 iframe sandbox 实时预览生成的 React 代码<br>
+    ② Visual Editor：预览中点选修改，不消耗 prompt 轮次<br>
+    ③ GitHub 同步 + 一键部署（可作为 Connector 实现）</p>
+  </div>
+</div>
+
+<div class="callout grey">
+  <strong>优先级：</strong>P1 完成即可验证核心假设——"通过 Skill 约束，LinsyWork 能否生成 Lovable 级别的 UI"。如果 P1 验证成功，说明 Harness 前四层（组件库 + Token + System Prompt + 自检）是质量差异的主要来源，P2/P3 ROI 可预期。如果不足，需回到 Lovable 未公开的 prompt 工程策略做更深挖掘。
+</div>
+</section>
+
+<!-- ==================== Sources ==================== -->
+<section id="sources">
+<h2>信息来源</h2>
+
+<h3>官方 / 一手来源</h3>
+<div class="table-wrap">
+<table>
+  <tr><th style="width:45%">来源</th><th>URL</th></tr>
+  <tr><td>Anthropic 官方客户案例 — Lovable</td><td><a href="https://claude.com/customers/lovable" target="_blank">claude.com/customers/lovable</a></td></tr>
+  <tr><td>Lovable 官方文档 — Build Mode</td><td><a href="https://docs.lovable.dev/features/agent-mode" target="_blank">docs.lovable.dev/features/agent-mode</a></td></tr>
+  <tr><td>Lovable 官方文档 — Supabase 集成</td><td><a href="https://docs.lovable.dev/integrations/supabase" target="_blank">docs.lovable.dev/integrations/supabase</a></td></tr>
+  <tr><td>Lovable 官方博客 — Agent Mode Beta</td><td><a href="https://lovable.dev/blog/agent-mode-beta" target="_blank">lovable.dev/blog/agent-mode-beta</a></td></tr>
+  <tr><td>Lovable 官方博客 — MCP Agent 集成</td><td><a href="https://lovable.dev/blog/agent-integrations" target="_blank">lovable.dev/blog/agent-integrations</a></td></tr>
+  <tr><td>Lovable 官方博客 — $85K Token 实践</td><td><a href="https://lovable.dev/blog/85000-in-tokens-later-scaling-agentic-coding-at-lovable" target="_blank">lovable.dev/blog/85000-in-tokens-later…</a></td></tr>
+  <tr><td>ZenML LLMOps 案例 (创始人演讲)</td><td><a href="https://www.zenml.io/llmops-database/building-an-ai-powered-software-development-platform-with-multiple-llm-integration" target="_blank">zenml.io/llmops-database/…</a></td></tr>
+  <tr><td>Lovable 定价页</td><td><a href="https://lovable.dev/pricing" target="_blank">lovable.dev/pricing</a></td></tr>
+</table>
+</div>
+
+<h3>高质量第三方来源</h3>
+<div class="table-wrap">
+<table>
+  <tr><th style="width:45%">来源</th><th>URL</th></tr>
+  <tr><td>TechCrunch — Series C $4 亿确认</td><td><a href="https://techcrunch.com/2026/08/12/lovable-confirms-new-13-3b-valuation-raises-another-400m/" target="_blank">techcrunch.com/…</a></td></tr>
+  <tr><td>Bloomberg — 腾讯、EU Fund 参投</td><td><a href="https://www.bloomberg.com/news/articles/2026-08-12/ai-coding-startup-lovable-raises-400-million-at-13-3-billion-valuation" target="_blank">bloomberg.com/…</a></td></tr>
+  <tr><td>Forbes — $12B 估值洽谈</td><td><a href="https://www.forbes.com/sites/rashishrivastava/2026/06/05/ai-coding-startup-lovable-in-talks-to-raise-funding-at-a-12-billion-valuation/" target="_blank">forbes.com/…</a></td></tr>
+  <tr><td>Sacra — 收入 & 商业模式分析</td><td><a href="https://sacra.com/c/lovable/" target="_blank">sacra.com/c/lovable/</a></td></tr>
+  <tr><td>Substack — AI Agent 架构还原</td><td><a href="https://sarthakai.substack.com/p/lets-build-the-lovable-ai-agent-tutorialcode" target="_blank">sarthakai.substack.com/…</a></td></tr>
+  <tr><td>ML6 — Lovable 应用解剖</td><td><a href="https://www.ml6.eu/en/blog/the-anatomy-of-a-lovable-app-and-its-boundaries-in-enterprise-software" target="_blank">ml6.eu/…</a></td></tr>
+  <tr><td>Vibe-eval — 技术栈安全分析</td><td><a href="https://vibe-eval.com/guides/lovable-tech-stack/" target="_blank">vibe-eval.com/…</a></td></tr>
+</table>
+</div>
+
+<h3>深度分析补充来源 (V4 新增)</h3>
+<div class="table-wrap">
+<table>
+  <tr><th style="width:45%">来源</th><th>URL</th></tr>
+  <tr><td>Anthropic Prompt Engineering — frontend_aesthetics</td><td><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices" target="_blank">platform.claude.com/docs/…/claude-prompting-best-practices</a></td></tr>
+  <tr><td>Lovable 官方文档 — Design Systems</td><td><a href="https://docs.lovable.dev/features/design-systems" target="_blank">docs.lovable.dev/features/design-systems</a></td></tr>
+  <tr><td>Lovable 官方文档 — Prompting Best Practices</td><td><a href="https://docs.lovable.dev/prompting/prompting-one" target="_blank">docs.lovable.dev/prompting/prompting-one</a></td></tr>
+  <tr><td>Medium — "The Design System designers missed was built by a developer"</td><td><a href="https://medium.com/design-bootcamp/the-most-important-design-system-in-2026-that-designers-missed-was-built-by-a-developer-d5617753882e" target="_blank">medium.com/design-bootcamp/…</a></td></tr>
+  <tr><td>Bare Metal Digest — Claude Design Gap 对比实验</td><td><a href="https://baremetaldigest.substack.com/p/the-design-gap-between-claude-web" target="_blank">baremetaldigest.substack.com/…</a></td></tr>
+  <tr><td>Qoder Work 官方文档</td><td><a href="https://docs.qoder.com/qoderwork/introduction" target="_blank">docs.qoder.com/qoderwork/introduction</a></td></tr>
+  <tr><td>Qoder Blog — Expert Suite / Canvas</td><td><a href="https://qoder.com/en/blog" target="_blank">qoder.com/en/blog</a></td></tr>
+  <tr><td>Anna Arteeva — Design Systems ♡ Lovable, Bolt, V0</td><td><a href="https://annaarteeva.substack.com/p/design-systems-lovable-bolt-v0-and" target="_blank">annaarteeva.substack.com/…</a></td></tr>
+</table>
+</div>
+
+<div class="callout grey" style="margin-top:24px">
+  <strong>免责声明：</strong>本调研基于截至 2026.08.24 的公开信息编写。Lovable 产品迭代极快，定价和功能可能随时变化。技术架构部分，除标注"官方确认"的内容外，其余为综合多方信息的合理推断，已按三级置信度标签标注。V4 版本为合并完整版，包含 V2 全景调研 + V3 深度分析。
+</div>
+</section>
+
+</main>
+<script>
+const ss=document.querySelectorAll('section[id]'),nl=document.querySelectorAll('nav.side a[href^="#"]');
+function hl(){let c='';ss.forEach(s=>{if(scrollY>=s.offsetTop-120)c=s.id});nl.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+c))}
+addEventListener('scroll',hl,{passive:!0});hl();
+</script>
+</body>
+</html>
